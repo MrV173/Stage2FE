@@ -49,6 +49,10 @@ const style = {
       width : "50px",
       height : "50px",
       marginLeft : "15px",
+    },
+
+    topNavbar : {
+      boxShadow: "0 0 20 px gray"
     }
   
   
@@ -58,7 +62,9 @@ const style = {
 export default function Main() {
     return (
       <div className="App">
+        <div> 
         <TopNav />
+        </div>
         <div style={style.body}>
           <div style={style.top}>
             <div style={style.gretting}>

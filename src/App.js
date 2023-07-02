@@ -5,6 +5,8 @@ import Daftar from './pages/register'
 import Login from './pages/login'
 import MyTicket from './pages/ticket';
 import TicketDetail from './pages/ticketDetail';
+import Admin from './pages/adminPage';
+import Payment from './pages/Payment';
 
 function App() {
   return (
@@ -16,6 +18,8 @@ function App() {
           <Route path="login" element={<Login />} />
           <Route path='myTicket' element={<MyTicket />} />
           <Route path='detailTicket' element={<TicketDetail />} />
+          <Route path='adminPage' element={<Admin />} />
+          <Route path='payment' element={<Payment />} />
         </Routes>
       </Router>
       
