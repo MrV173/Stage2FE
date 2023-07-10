@@ -1,0 +1,58 @@
+.ads {
+    width: 500px;
+    height: 230px;
+}
+
+.containerHome {
+    background: linear-gradient(#EC7AB7, #EC7A7A);
+    width: 100%;
+    height: 300px;
+}
+
+.containerSearchTicket {
+    box-shadow:  1px 1px 20px gray;
+    display: flex;
+    width: 95%;
+    margin: auto;
+    background-color: white;
+    border-radius: 20px;
+}
+
+.leftFlex {
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    background: #F2F2F2;
+}
+
+.rightFlex {
+    flex: 60%;
+    padding: 10px;
+}
+
+.buttonSearchTicket {
+    background: linear-gradient(#EC7AB7, #EC7A7A);
+    margin-top: 32px;
+    color: white;
+    font-weight: bold;
+    width: 170px;
+    padding: 5px;
+    border: none;
+    border-radius: 10px;
+
+}
+
+.leftTicket {
+    background: white;
+    margin-top: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 10px;
+}
+
+.headList {
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    font-size: 20px;
+}
