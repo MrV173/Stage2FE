@@ -1,0 +1,35 @@
+.myTicketDetailContainer {
+    width: 100%;
+    padding-top: 20px;
+    padding-left: 20px ;
+}
+
+.topMyTicketDetail {
+    margin-top: 20px;
+}
+
+.brandMyTicketDetail {
+    border: solid;
+    padding-left: 130px;
+    border-bottom-left-radius: 90px;
+    background: linear-gradient(#EC7AB7, #EC7A7A);
+    border: none;
+}
+
+.middleMyTicketDetail {
+    display: flex;
+    width: 90%;
+    margin: auto;
+}
+
+.bottomMyTicketDetail {
+    width: 90%;
+    margin: auto;
+    font-size: 18px;
+}
+
+.userTicketDetail {
+    width: 95%;
+    margin: auto;
+    font-size: 20px;
+}

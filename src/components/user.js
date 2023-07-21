@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import NavbarUser from "../components/navbarUser"
+import React from "react";
 import { Carousel, Col, Container, Row } from "react-bootstrap";
 import Iklan1 from "../assets/img/iklan1.png"
 import Iklan2 from "../assets/img/iklan2.png"
@@ -8,21 +7,21 @@ import Rectangle from "../assets/img/rectangle.svg"
 import Form from 'react-bootstrap/Form';
 import Arrow from "../assets/img/iconSwitch.png"
 import "../assets/css/homePage.css"
-import TicketList from "../components/ticketList";
-import Footer from "../components/footer";
+import TicketList from "./ticketList";
+import Footer from "./footer";
 import { useQuery } from "react-query";
 import { API } from "../config/api";
 
-export default function UserLandingPage () {
-    
-    let { data : tickets } = useQuery("ticketsCache", async () => {
-        const response = await API.get("/tickets")
-        return response.data.data
+
+export default function UserPage() {
+
+    let { data : tickets } = useQuery("ticketsCache", async() => {
+        const response = API.get("/tickets")
+        return (await response).data
     })
 
     return (
-        <div>
-            <div className="containerHome">
+        <div className="containerHome">
             <div>
                 <Container style={{paddingTop: "40px"}}>
                     <Row>
@@ -114,25 +113,20 @@ export default function UserLandingPage () {
                 </Container>
                 </div>
                 <div style={{ margin: "auto", width : "90%"}}>
+                {tickets?.length !== 0 ? (
+                        <div>
+                            {tickets?.map((item,index) => (
+                             <TicketList item={item} key={index} />   
+                            ))}
+                        </div>
+                    ) : (
 
-            {tickets?.length !== 0 ? (
-                <div>
-              {tickets.map((item, index) => (
-                <TicketList item={item} key={index} />
-              ))}
-              </div>
-            
-          ) : (
-            <Col>
-         
-                <div className="mt-3">No Ticket Found</div>
-            </Col>
-          )}
-            
+                        <div>
+                            Ticket not Found
+                        </div>
+                    )}
                 </div>
                 <Footer />
-        </div>
-
         </div>
     )
 }

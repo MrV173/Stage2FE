@@ -9,8 +9,37 @@ import Arrow from "../assets/img/iconSwitch.png"
 import "../assets/css/homePage.css"
 import TicketList from "./ticketList";
 import Footer from "./footer";
+import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "../context/userContext";
+import { useMutation, useQuery } from "react-query";
+import { API } from "../config/api";
+import ModalBuy from "./modal/modal-buy";
 
 export default function HomePage() {
+
+    let { data : tickets } = useQuery("ticketsCache", async () => {
+        const response = await API.get("/tickets")
+        return response.data.data
+    })
+
+    let navigate = useNavigate()
+
+    const [state] = useContext(UserContext)
+
+    const checkAuth = () => {
+        if (state.isLogin) {
+            navigate("/user")
+        }
+    }
+
+    useEffect(() => {
+        checkAuth()
+    }, [])
+
+
+    
+
     return (
         <div className="containerHome">
             <div>
@@ -46,7 +75,7 @@ export default function HomePage() {
                     <Container>
                         <div style={{display:"flex", alignItems:"center"}}>
                             <div style={{width:"450px"}}>
-                                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                <Form.Group className="mb-3">
                                     <Form.Label>Asal</Form.Label>
                                     <Form.Control type="text" placeholder="Jakarta" />
                                 </Form.Group>
@@ -55,7 +84,7 @@ export default function HomePage() {
                                 <img src={Arrow} alt="arrow" style={{width: "50px", height:"50px"}} />
                             </div>
                             <div style={{width:"450px"}}>
-                                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                <Form.Group className="mb-3">
                                     <Form.Label>Tujuan</Form.Label>
                                     <Form.Control type="text" placeholder="Surabaya" />
                                 </Form.Group>
@@ -63,23 +92,23 @@ export default function HomePage() {
                         </div>
                         <Row>
                         <Col>
-                            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                            <Form.Group className="mb-3">
                                 <Form.Label>Tanggal</Form.Label>
-                                <Form.Control type="date" placeholder="name@example.com" />
+                                <Form.Control type="date"/>
                             </Form.Group>
                         </Col>
                         <Col>
-                            <input class="form-check-input me-2" type="checkbox" value="" id="flexCheckDefault" />
-                            <label class="form-check-label" for="flexCheckDefault">Pulang Pergi</label>
+                            <input className="form-check-input me-2" type="checkbox" value=""/>
+                            <label className="form-check-label">Pulang Pergi</label>
                         </Col>
                         <Col>
-                            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                            <Form.Group className="mb-3">
                                 <Form.Label>Dewasa</Form.Label>
                                 <Form.Control type="number" />
                             </Form.Group>
                         </Col>
                         <Col>
-                            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                            <Form.Group className="mb-3">
                                 <Form.Label>Bayi</Form.Label>
                                 <Form.Control type="number" />
                             </Form.Group>
@@ -104,10 +133,22 @@ export default function HomePage() {
                 </Container>
                 </div>
                 <div style={{ margin: "auto", width : "90%"}}>
-                    <TicketList />
-                    <TicketList />
-                    <TicketList />
+                
+                {tickets?.length !== 0 ? (
+                        <div>
+                            {tickets?.map((item,index) => (
+                             <TicketList item={item} key={index} />   
+                            ))}
+                        </div>
+                    ) : (
+
+                        <div>
+                            Ticket not Found
+                        </div>
+                    )}
+
                 </div>
+                
                 <Footer />
         </div>
     )

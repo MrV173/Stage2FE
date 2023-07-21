@@ -5,11 +5,19 @@ import Button from 'react-bootstrap/Button';
 import icon from '../assets/img/brand.svg'
 import logo from '../assets/img/brandIcon.svg'
 import Modal from 'react-bootstrap/Modal';
-import Form from 'react-bootstrap/Form';
-import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import "../assets/css/navbar.css"
-import { useState } from 'react';
-
+import { useState, useContext } from 'react';
+import Register from './auth/Register'
+import Login from './auth/login'
+import { Link, useNavigate } from "react-router-dom"
+import { UserContext } from '../context/userContext';
+import { Dropdown } from 'react-bootstrap';
+import UserIcon from "../assets/img/adminIcon.svg"
+import MyTicketIcon from "../assets/img/myTicketIcon.svg"
+import LogOut from "../assets/img/logoutIcon.svg"
+import addTicketIcon from "../assets/img/addTicket.svg"
+import BillIcon from "../assets/img/billIcon.svg"
+import Avatar from "../assets/img/avatarIcon.svg"
 
 
 function TopNav() {
@@ -22,78 +30,80 @@ const [login, setLogin] = useState(false)
 const loginClose = () => setLogin(false)
 const loginOpen = () => setLogin(true)
 
+
+  const [state, dispatch] = useContext(UserContext)
+  const logout = () => {
+    dispatch({
+      type: "LOGOUT",
+    })
+  }
+
+
   return (
 
     <div>
     <Modal show={show} onHide={handleClose}>
         <Modal.Body>
-            <div>
-                <div className='titleRegister'>Daftar</div>
-                <div>
-                    <FloatingLabel controlId="floatingInput"label="Nama lengkap"className="mb-3">
-                        <Form.Control type="text" placeholder='Nama lengkap' />
-                    </FloatingLabel>
-                    <FloatingLabel controlId="floatingInput"label="Username"className="mb-3">
-                        <Form.Control type="text" placeholder='Username' />
-                    </FloatingLabel>
-                    <FloatingLabel controlId="floatingInput"label="Email"className="mb-3">
-                        <Form.Control type="text" placeholder='Email' />
-                    </FloatingLabel>
-                    <FloatingLabel controlId="floatingInput"label="Password"className="mb-3">
-                        <Form.Control type="password" placeholder='Passoword' />
-                    </FloatingLabel>
-                        <Form.Select className='mb-3'>
-                        <Form.Label>Jenis Kelamin</Form.Label>
-                            <option hidden>Jenis Kelamin</option>
-                            <option>Laki-Laki</option>
-                            <option>Perempuan</option>
-                        </Form.Select>
-                    <FloatingLabel controlId="floatingInput"label="No Telephone"className="mb-3">
-                         <Form.Control type="text" placeholder='No Telphone' />
-                    </FloatingLabel>
-                        <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-                        <Form.Control as="textarea" rows={5} placeholder='Alamat' />
-                        </Form.Group>
-                        <div className='containerRegisterButton'>
-                            <button className='buttonRegister'>Daftar</button>
-                        </div>
-                </div>
-            </div>
+            <Register />
         </Modal.Body>
       </Modal>
 
       <Modal show={login} onHide={loginClose}>
         <Modal.Body>
-            <div>
-            <div className='loginTitle'>Login</div>
-            <div>    
-            <FloatingLabel controlId="floatingInput"label="Username"className="mb-3">
-                <Form.Control type="text" placeholder='Username' className='formControl' />
-            </FloatingLabel>
-            <FloatingLabel controlId="floatingInput"label="Password"className="mb-3">
-                <Form.Control type="password" placeholder='Password' />
-            </FloatingLabel>
-            </div>
-            </div>
-            <div className='containerRegisterButton'>
-                <button className='buttonRegister'>Login</button>
-            </div>
-            <div>
-                <Form.Text>Belum punya akun? Klik Disini</Form.Text>
-            </div>
+            <Login />
         </Modal.Body>
       </Modal>
 
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container>
-        <Navbar.Brand>
+        <Navbar.Brand as={Link} to="/auth" style={{ cursor:"pointer"}} >
           <img src={icon} alt='icon' />
           <img src={logo} alt='logo' />
     </Navbar.Brand>
+
+   {state.user.role === "admin" ? (
+    <Nav className='justify-content-end'>
+    <Dropdown>
+      <Dropdown.Toggle variant='light'>
+      <img src={UserIcon} alt='userIcon' />
+      </Dropdown.Toggle>
+      <Dropdown.Menu>
+          <Dropdown.Item variant="light" as={Link} to="/addTicket">
+            <img src={addTicketIcon} alt='addTicketIcon' />Tambah Tiket
+          </Dropdown.Item>
+          <Dropdown.Divider />
+          <Dropdown.Item variant="light" onClick={logout}>
+            <img src={LogOut} alt='logIcon' />Log Out            
+          </Dropdown.Item>
+        </Dropdown.Menu>
+    </Dropdown>
+      
+      </Nav>
+   ) : state.isLogin? (
+    <Nav className='justify-content-end'>
+    <Dropdown>
+      <Dropdown.Toggle variant='light'>
+      <p style={{ color:"pink"}}>{state.user.username} <img src={Avatar} alt='avatar' /></p>
+      </Dropdown.Toggle>
+      <Dropdown.Menu>
+          <Dropdown.Item variant="light" as={Link} to="/userTicket">
+            <img src={MyTicketIcon} alt='myTicketIcon' /> Tiket Saya
+          </Dropdown.Item>
+          <Dropdown.Item variant="light" as={Link} to="/payment"><img src={BillIcon} alt='billIcon' /> Payment </Dropdown.Item>
+          <Dropdown.Divider />
+          <Dropdown.Item variant="light" onClick={logout}>
+            <img src={LogOut} alt='logIcon' />Log Out
+            </Dropdown.Item>
+        </Dropdown.Menu>
+    </Dropdown>    
+      </Nav>
+   ) : (
+
     <Nav className='justify-content-end'>
       <Button variant="outline-danger" className='me-3' onClick={handleShow}>Daftar</Button>
       <Button variant="danger" onClick={loginOpen}>Login</Button>
       </Nav>
+   )}
     </Container>
   </Navbar>
   </div>
