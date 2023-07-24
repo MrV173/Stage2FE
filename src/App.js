@@ -17,6 +17,7 @@ import {
 import TicketDetail from "./components/ticketDetail"
 import Payment from "./pages/userPayment"
 import Navbar from "./components/navbar"
+import TicketPayment from "./components/ticketPayment"
 
 function App() {
   let navigate = useNavigate();
@@ -76,6 +77,7 @@ function App() {
               <Route path='/userTicket' element={<MyTicket />} />
               <Route path='/ticketDetail' element={<TicketDetail />} />
               <Route path='/payment' element={<Payment />} />
+              <Route path='/ticket/:id' element={<TicketPayment />} /> 
             </Route>
             <Route element={<PrivateRouteAdmin />}>
               <Route path='/admin' element={<AdminLandingPage />} />

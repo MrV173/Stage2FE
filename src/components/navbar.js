@@ -56,7 +56,7 @@ const loginOpen = () => setLogin(true)
 
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container>
-        <Navbar.Brand as={Link} to="/auth" style={{ cursor:"pointer"}} >
+        <Navbar.Brand>
           <img src={icon} alt='icon' />
           <img src={logo} alt='logo' />
     </Navbar.Brand>

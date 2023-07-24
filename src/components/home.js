@@ -9,12 +9,11 @@ import Arrow from "../assets/img/iconSwitch.png"
 import "../assets/css/homePage.css"
 import TicketList from "./ticketList";
 import Footer from "./footer";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/userContext";
-import { useMutation, useQuery } from "react-query";
+import { useQuery } from "react-query";
 import { API } from "../config/api";
-import ModalBuy from "./modal/modal-buy";
 
 export default function HomePage() {
 

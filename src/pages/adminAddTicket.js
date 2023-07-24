@@ -3,7 +3,6 @@ import { useMutation, useQuery } from "react-query";
 import { API } from "../config/api";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import NavbarAdmin from "../components/navbarAdmin"
 import "../assets/css/addTicket.css"
 
 
@@ -89,7 +88,6 @@ export default function AddAdminTicket() {
 
     return (
         <div>
-            <NavbarAdmin />
             <div>
                 <div className="addTicketContainer">
                     <h1>Tambah Tiket</h1>

@@ -1,13 +1,14 @@
 import React from "react";
-import NavbarUser from "../components/navbarUser"
+
 import MyTicket from "../components/myTicket";
 import { useQuery } from "react-query";
 import { API } from "../config/api";
 
 export default function UserTicket () {
 
-    let { data: tickets, refetch } = useQuery("userTicketCache", async () => {
-        const response = await API.get("/tickets");
+    let { data: user } = useQuery("userTicketCache", async () => {
+        const response = await API.get("/user");
+        console.log("data user:", response)
         return response.data.data;
       });
 
@@ -16,9 +17,9 @@ export default function UserTicket () {
     <div>
     <h1 style={{marginBottom: "30px"}}>Ticket Saya</h1>
     <div style={{ margin: "auto", width : "90%"}}>
-                    {tickets?.length !== 0 ? (
+                    {user?.length !== 0 ? (
                         <div>
-                            {tickets?.map((item,index) => (
+                            {user?.map((item,index) => (
                                 <MyTicket item={item} key={index} />
                             ))}
                         </div>
